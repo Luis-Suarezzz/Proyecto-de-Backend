@@ -1,19 +1,18 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const TOKEN_SECRET = process.env.TOKEN_SECRET;
 
-export default function createAccesToken(payload) {
-    return new Promise((resolve, reject) => {
-        jwt.sign(
-            payload,
-            TOKEN_SECRET,
-            {
-                expiresIn: "99d",
-            }, (err, token) => {
-                if (err) reject(err);
-                resolve(token)
-            }
-        );
-    })
+function createToken(payload) {
+    const expirationTime = new Date(Date.now() + 24 * 60 * 60 * 2000); // 20 minutes
+    const accessToken = jwt.sign(
+        {
+            exp: Math.floor(expirationTime / 1000),
+            data: payload,
+        },
+        TOKEN_SECRET
+    );
+    return accessToken;
 }
+
+module.exports = { createToken };

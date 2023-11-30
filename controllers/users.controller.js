@@ -1,7 +1,6 @@
 const UsersModel = require('../models/users.model.js');
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const createAccesToken = require('../middleware/validateToken.js');
+// const bcrypt = require("bcryptjs");
+// const jwt = require("jsonwebtoken");
 
 class UsersController {
     async buscarId(id) {

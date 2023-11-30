@@ -1,6 +1,6 @@
 const express = require('express');
 const UsersController = require('../controllers/users.controller');
-const createAccesToken = require('../middleware/validateToken.js');
+const { createToken } = require('../middleware/jwt.js');
 
 const router = express.Router();
 
@@ -15,17 +15,14 @@ router.get('/:id', async function (req, res) {
 router.post('/login', async function(req, res) {
     await UsersController.login(req.body)
         .then((user) => {
-            // TODO: Enviar la sesion al usuario.
-
-            res.json({ user: {
+            let token = createToken({
                 id: user.id,
-                nombre: user.nombre,
+                name: user.name,
                 email: user.email,
-            } })
-
-            // const token = await createAccesToken({ id: usuario.id, tipo: usuario.tipo_user })
-            // res.cookie('token', token)
-            // res.send(usuario.tipo_user)
+                role: user.role
+            })
+            // Se retorna el JWT
+            res.status(200).json({ userInfo: {...user, password: undefined }, token: token }) 
         })
         .catch((err) => res.status(400).send({ err }));
 });
