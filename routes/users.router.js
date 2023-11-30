@@ -14,12 +14,20 @@ router.get('/:id', async function (req, res) {
 
 router.post('/login', async function(req, res) {
     await UsersController.login(req.body)
-    .catch((err) => res.status(400).send({ err }))
-    .then(async (usuario) => {
-        const token = await createAccesToken({ id: usuario.id, tipo: usuario.tipo_user })
-        res.cookie('token', token)
-        res.send(usuario.tipo_user)
-    });
+        .then((user) => {
+            // TODO: Enviar la sesion al usuario.
+
+            res.json({ user: {
+                id: user.id,
+                nombre: user.nombre,
+                email: user.email,
+            } })
+
+            // const token = await createAccesToken({ id: usuario.id, tipo: usuario.tipo_user })
+            // res.cookie('token', token)
+            // res.send(usuario.tipo_user)
+        })
+        .catch((err) => res.status(400).send({ err }));
 });
 
 router.post('/register', async function(req, res) {

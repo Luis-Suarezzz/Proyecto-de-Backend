@@ -2,20 +2,29 @@ const db = require('../database/connection');
 const bcrypt = require("bcryptjs");
 
 class UsersModel {
-    // TODO: fix login
     async login(user) {
-        const { email, password } = user
+        const { email, password } = user;
+        
+        if (!password || !email) {
+            throw new Error("Es necesario rellenar todos los campos para avanzar en el login")
+        }
+
         return new Promise((resolve, reject) => {
             db.query('SELECT * FROM `users` WHERE `email` = ?', [email], async (err, data) => {
-                if (err) {
-                    reject(err);
-                }
+                
+                if (err) reject(err);
+                if (!data.length) reject(-1);
                 else {
+                    // Se encontro el usuario, se retornaran sus datos
                     const userPass = data[0].password
                     
-                    bcrypt.compare(userPass, password).then((results) => {
-                        resolve();
-                    })
+                    const isPasswordValid = await bcrypt.compare(password, userPass)
+
+                    if (!isPasswordValid) {
+                        throw new Error("Contraseña incorrecta")
+                    } else {
+                        resolve(data[0]);
+                    }
                 }
             })
         })
@@ -53,8 +62,6 @@ class UsersModel {
     async buscarId(id) {
         return new Promise((resolve, reject) => {
             db.query('SELECT * FROM `users` WHERE `id` = ?', [id], (err, results) => {
-                // TODO: evitar retornar la "password" del usuario
-
                 if (err) reject(err);
                 if (!results.length) reject(-1);
                 else resolve(results[0]);

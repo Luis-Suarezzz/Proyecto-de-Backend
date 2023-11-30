@@ -12,24 +12,20 @@ class UsersController {
             });
     };
 
-    // TODO: Permitir login
     async login(user) {
         return new Promise((resolve, reject) => {
             UsersModel.login(user)
-                .catch((err) => reject('Ha ocurrido un error al iniciar sesion.'))
-                .then(() => {
-                    // UsersModel.mostrar()
-                        // .catch((err) => reject(err))
-                        // .then((users) => resolve(users));
-                        // res.send()
-                });
+                .then((logedUser) => {
+                    resolve(logedUser);
+                })
+                .catch((err) => reject(err & err.message ? err.message : 'Ha ocurrido un error al iniciar sesion.'))
         });
     }
 
     async register(user) {
         return new Promise(async (resolve, reject) => {
             UsersModel.register(user)
-                .then(async (idUser) => {
+                .then((idUser) => {
                     UsersModel.buscarId(idUser)
                         .then((usuario) => {
                             resolve(usuario);
