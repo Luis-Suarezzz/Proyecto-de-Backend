@@ -5,12 +5,13 @@ class ModalidadesController {
     async ingresar(modalidad) {
         return new Promise((resolve, reject) => {
             ModalidadesModel.ingresar(modalidad)
-                .catch((err) => reject(err))
-                .then(() => {
-                    ModalidadesModel.mostrar()
-                        .catch((err) => reject(err))
-                        .then((modalidades) => resolve(modalidades));
-                });
+                .then((idModalidad) => {
+                    ModalidadesModel.buscarModalidadPorId(idModalidad)
+                        .then((modalidades) => resolve(modalidades))
+                        .catch((err) => reject(err));
+                })
+                .catch((err) => reject(err & err.message ? err.message : err))
+
         });
     }
 

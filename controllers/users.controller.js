@@ -1,6 +1,4 @@
 const UsersModel = require('../models/users.model.js');
-// const bcrypt = require("bcryptjs");
-// const jwt = require("jsonwebtoken");
 
 class UsersController {
     async buscarId(id) {
@@ -47,6 +45,8 @@ class UsersController {
                 });
         });
     }
+
+    // TODO: permitir eliminar.
 }
 
 module.exports = new UsersController();

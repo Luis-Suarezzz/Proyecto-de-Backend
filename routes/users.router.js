@@ -13,7 +13,12 @@ router.get(
     UsersController.buscarId(req.params.id)
     .catch((err) => res.status(400).send({ err }))
     .then(async (usuario) => {
-        res.json({ usuario });
+        res.json({ usuario: {
+            id: usuario.id,
+            name: usuario.name,
+            email: usuario.email,
+            role: usuario.role
+        } });
     });
 });
 

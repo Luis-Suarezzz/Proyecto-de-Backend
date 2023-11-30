@@ -6,16 +6,16 @@ class CategoriasController {
     async ingresar(categoria, idModalidad) {
         return new Promise((resolve, reject) => {
             ModalidadesController.buscarModalidadPorId(idModalidad)
-                .catch((err) => reject(err))
                 .then(() => {
                     CategoriasModel.ingresar(categoria, idModalidad)
-                        .catch((err) => reject('La categoría ya se encuentra registrada.'))
                         .then(() => {
                             CategoriasModel.mostrar()
                                 .catch((err) => reject(err))
                                 .then((categorias) => resolve(categorias));
-                        });
-                });
+                        })
+                        .catch((err) => reject('La categoría ya se encuentra registrada.'));
+                })
+                .catch((err) => reject(err));
         });
     }
 
