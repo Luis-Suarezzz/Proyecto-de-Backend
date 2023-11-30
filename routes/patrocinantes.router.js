@@ -19,11 +19,15 @@ router.get('/', async function(req, res, next) {
         .then((patrocinantes) => res.send(patrocinantes));
 });
 
-// NUEVA RUTA
 router.get('/equiposPatrocinados/:idPatrocinante', async function(req, res, next) {
-    await PatrocinantesController.mostrarEquiposPatrocinados(req.params.idPatrocinante)
-        .catch((err) => res.status(400).send({ err }))
-        .then((equipos) => res.send(equipos));
+    if (req.params.idPatrocinante) {
+
+        await PatrocinantesController.mostrarEquiposPatrocinados(req.params.idPatrocinante)
+            .catch((err) => res.status(400).send({ err }))
+            .then((equipos) => res.send(equipos));
+    } else {
+        res.status(400).send('Todos los datos son requeridos');
+    }
 });
 
 router.post('/', async function(req, res, next) {
@@ -32,20 +36,19 @@ router.post('/', async function(req, res, next) {
             .catch((err) => res.status(400).send({ err }))
             .then((patrocinantes) => res.status(201).send(patrocinantes));
     } else {
-        res.status(400).send('err');
+        res.status(400).send('Todos los datos son requeridos');
     }
 });
 
-// NUEVA RUTA
 router.post('/patrocinar', async function(req, res, next) {
-    if (req.body.patrocinante && req.body.equipo) {
-        const { patrocinante, equipo } = req.body;
+    const { idPatrocinante, idEquipo } = req.body;
+    if (idPatrocinante && idEquipo) {
 
-        await PatrocinantesController.inscribirEquipo(patrocinante, equipo)
+        await PatrocinantesController.inscribirEquipo(idPatrocinante, idEquipo)
             .catch((err) => res.status(400).send({ err }))
             .then((equipos) => res.send(equipos));
     } else {
-        res.status(400).send('err');
+        res.status(400).send('Todos los datos son requeridos');
     }
 });
 

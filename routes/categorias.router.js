@@ -16,7 +16,6 @@ router.get('/:idCategoria', async function(req, res, next) {
         .then((categoria) => res.send(categoria));
 });
 
-// TODO: probar esta ruta.
 router.post('/', async function(req, res, next) {
     const { categoria, idModalidad } = req.body;
     if (categoria && idModalidad) {
@@ -30,7 +29,6 @@ router.post('/', async function(req, res, next) {
     }
 });
 
-// TODO: probar esta ruta.
 router.put('/:id', async function(req, res, next) {
     if (req.body.categoria && req.body.modalidad) {
         const { categoria, modalidad } = req.body;
@@ -43,7 +41,6 @@ router.put('/:id', async function(req, res, next) {
     }
 });
 
-// TODO: probar esta ruta.
 router.delete('/:id', async function(req, res, next) {
     await CategoriasController.eliminar(req.params.id)
         .catch((err) => res.status(400).send({ err }))

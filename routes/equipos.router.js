@@ -19,11 +19,14 @@ router.get('/', async function(req, res, next) {
         .then((equipos) => res.send(equipos));
 });
 
-// NUEVA RUTA
 router.get('/:idEquipo', async function(req, res, next) {
-    await EquiposController.buscarEquipoPorId(req.params.idEquipo)
-        .catch((err) => res.status(400).send({ err }))
-        .then((equipo) => res.send(equipo));
+    if (req.params.idEquipo) {
+        await EquiposController.buscarEquipoPorId(req.params.idEquipo)
+            .catch((err) => res.status(400).send({ err }))
+            .then((equipo) => res.send(equipo));
+    } else {
+        res.status(400).send('Todos los datos son requeridos');
+    }
 });
 
 router.get('/inscripcion/:idCategoria', async function(req, res, next) {
@@ -38,30 +41,29 @@ router.post('/', async function(req, res, next) {
             .catch((err) => res.status(400).send({ err }))
             .then((equipos) => res.status(201).send(equipos));
     } else {
-        res.status(400).send('err');
+        res.status(400).send('Todos los datos son requeridos');
     }
 });
 
-// NUEVA RUTA
 router.post('/inscribir', async function(req, res, next) {
-    if (req.body.equipo && req.body.categoria) {
-        const { equipo, categoria } = req.body;
+    const { idEquipo, idCategoria } = req.body;
+    if (idEquipo && idCategoria) {
 
-        await EquiposController.inscribirCategoria(equipo, categoria)
+        await EquiposController.inscribirCategoria(idEquipo, idCategoria)
             .catch((err) => res.status(400).send({ err }))
-            .then((equipos) => res.send(equipos));
+            .then((equipos) => res.json({ equipos_en_categoria: equipos }));
     } else {
-        res.status(400).send('err');
+        res.status(400).send('Todos los datos son requeridos');
     }
 });
 
 router.put('/:id', async function(req, res, next) {
-    if (req.body.equipo) {
+    if (req.body.equipo && req.params.id) {
         await EquiposController.editar(req.params.id, req.body.equipo)
             .catch((err) => res.status(400).send({ err }))
             .then((equipo) => res.send(equipo));
     } else {
-        res.status(400).send('err');
+        res.status(400).send('Todos los datos son requeridos');
     }
 });
 

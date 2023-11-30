@@ -32,21 +32,6 @@ class UsersController {
                 .catch((err) => reject(err & err.message ? err.message : 'Ha ocurrido un error al registrar el usuario.'))
         });
     }
-
-    // TODO: permitir editar.
-    async editar(idEquipo, equipo) {
-        return new Promise((resolve, reject) => {
-            EquiposModel.editar(idEquipo, equipo)
-                .catch((err) => reject('El equipo ya está registrado.'))
-                .then(() => {
-                    EquiposModel.buscarEquipoPorId(idEquipo)
-                        .catch((err) => reject('El equipo no está registrado.'))
-                        .then((equipo) => resolve(equipo));
-                });
-        });
-    }
-
-    // TODO: permitir eliminar.
 }
 
 module.exports = new UsersController();

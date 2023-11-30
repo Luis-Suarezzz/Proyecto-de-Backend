@@ -6,12 +6,12 @@ class EquiposController {
     async insertar(equipo) {
         return new Promise((resolve, reject) => {
             EquiposModel.insertar(equipo)
-                .catch((err) => reject('El equipo ya está registrado.'))
-                .then(() => {
-                    EquiposModel.mostrar()
-                        .catch((err) => reject(err))
-                        .then((equipos) => resolve(equipos));
-                });
+                .then((idTeam) => {
+                    EquiposModel.buscarEquipoPorId(idTeam)
+                        .then((equipos) => resolve(equipos))
+                        .catch((err) => reject(err));
+                })
+                .catch((err) => reject('El equipo ya está registrado.'));
         });
     }
 
@@ -26,7 +26,7 @@ class EquiposController {
     async editar(idEquipo, equipo) {
         return new Promise((resolve, reject) => {
             EquiposModel.editar(idEquipo, equipo)
-                .catch((err) => reject('El equipo ya está registrado.'))
+                .catch((err) => reject('Ha ocurrido un error actualizando los datos del equipo'))
                 .then(() => {
                     EquiposModel.buscarEquipoPorId(idEquipo)
                         .catch((err) => reject('El equipo no está registrado.'))
@@ -84,22 +84,24 @@ class EquiposController {
     }
 
     async inscribirCategoria(idEquipo, idCategoria) {
+        console.log('Se ha recibido: ' + idEquipo, idCategoria);
+
         return new Promise((resolve, reject) => {
             CategoriasController.buscarCategoriaPorId(idCategoria)
-                .catch((err) => reject(err))
                 .then(() => {
                     EquiposModel.buscarEquipoPorId(idEquipo)
-                        .catch((err) => reject('El equipo no está registrado.'))
                         .then(() => {
                             EquiposModel.inscribirCategoria(idEquipo, idCategoria)
-                                .catch((err) => reject(err))
                                 .then(() => {
                                     EquiposModel.mostrarEquiposPorCategoria(idCategoria)
                                         .catch((err) => reject(err))
                                         .then((equipos) => resolve(equipos));
-                                });
-                        });
-                });
+                                })
+                                .catch((err) => reject(err));
+                        })
+                        .catch((err) => reject('El equipo no está registrado.'));
+                })
+                .catch((err) => reject(err));
         });
     }
 

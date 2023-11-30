@@ -62,8 +62,8 @@ class CategoriasController {
     async buscarCategoriaPorId(id) {
         return new Promise((resolve, reject) => {
             CategoriasModel.buscarCategoriaPorId(id)
-                .catch((err) => reject('La categoría no se encuentra registrada'))
-                .then((categoria) => resolve(categoria));
+                .then((categoria) => resolve(categoria))
+                .catch((err) => reject('La categoría no se encuentra registrada'));
         });
     }
 }

@@ -35,7 +35,5 @@ router.post('/', async function(req, res, next) {
     }
 })
 
-// TODO: agregar funcionalidad de modificar el nombre de una modalidad.
-
 
 module.exports = router;

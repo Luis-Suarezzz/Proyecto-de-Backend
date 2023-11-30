@@ -314,8 +314,8 @@ ALTER TABLE `categorias`
 -- Filtros para la tabla `categorias_equipos`
 --
 ALTER TABLE `categorias_equipos`
-  ADD CONSTRAINT `Categorias_Equipos_ibfk_1` FOREIGN KEY (`id_equ_catequ`) REFERENCES `equipos` (`id_equ`) ON DELETE CASCADE,
-  ADD CONSTRAINT `Categorias_Equipos_ibfk_2` FOREIGN KEY (`id_cat_catequ`) REFERENCES `categorias` (`id_cat`) ON DELETE CASCADE;
+  ADD CONSTRAINT `categorias_Equiposeibfk_1` FOREIGN KEY (`id_equ_catequ`) REFERENCES `equipos` (`id_equ`) ON DELETE CASCADE,
+  ADD CONSTRAINT `categorias_Equiposeibfk_2` FOREIGN KEY (`id_cat_catequ`) REFERENCES `categorias` (`id_cat`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `integrantes`
@@ -327,8 +327,8 @@ ALTER TABLE `integrantes`
 -- Filtros para la tabla `patrocinantes_equipos`
 --
 ALTER TABLE `patrocinantes_equipos`
-  ADD CONSTRAINT `Patrocinantes_Equipos_ibfk_1` FOREIGN KEY (`id_pat_patequ`) REFERENCES `patrocinantes` (`id_pat`) ON DELETE CASCADE,
-  ADD CONSTRAINT `Patrocinantes_Equipos_ibfk_2` FOREIGN KEY (`id_equ_patequ`) REFERENCES `equipos` (`id_equ`) ON DELETE CASCADE;
+  ADD CONSTRAINT `patrocinantes_equipos_ibfk_1` FOREIGN KEY (`id_pat_patequ`) REFERENCES `patrocinantes` (`id_pat`) ON DELETE CASCADE,
+  ADD CONSTRAINT `patrocinantes_equipos_ibfk_2` FOREIGN KEY (`id_equ_patequ`) REFERENCES `equipos` (`id_equ`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
