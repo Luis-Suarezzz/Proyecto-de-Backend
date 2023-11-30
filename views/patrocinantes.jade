@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  h4
+    a(href="/") Home
+
+  ul
+    each patrocinante in patrocinantes
+        li
+            strong #{ patrocinante.patrocinante_pat }
+            p ID: #{ patrocinante.id_pat }

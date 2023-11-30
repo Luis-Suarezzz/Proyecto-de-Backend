@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  h4
+    a(href="/") Home
+
+  ul
+    each modalidad in modalidades
+        li
+            strong #{ modalidad.modalidad_mod }
+            p ID: #{ modalidad.id_mod }

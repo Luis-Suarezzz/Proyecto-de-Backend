@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  h4
+    a(href="/") Home
+
+  ul
+    each equipo in equipos
+        li
+            strong #{ equipo.equipo_equ }
+            p ID: #{ equipo.id_equ }
