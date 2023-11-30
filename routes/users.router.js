@@ -1,10 +1,15 @@
 const express = require('express');
 const UsersController = require('../controllers/users.controller');
 const { createToken } = require('../middleware/jwt.js');
+// const { validateToken, checkRole } = require('../middleware/validateToken.js');
 
 const router = express.Router();
 
-router.get('/:id', async function (req, res) {
+router.get(
+    '/:id',
+    // validateToken,
+    // checkRole('super-admin'),
+    async function (req, res) {
     UsersController.buscarId(req.params.id)
     .catch((err) => res.status(400).send({ err }))
     .then(async (usuario) => {

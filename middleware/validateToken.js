@@ -10,7 +10,7 @@ const validateToken = async (req, res, next) => {
     }
 
     try {
-        const decodedToken = await jwt.verify(token, process.env.secret);
+        const decodedToken = await jwt.verify(token, process.env.TOKEN_SECRET);
         req.user = decodedToken;
         next(); // Continuar con la verificación de roles en checkRole
     } catch (error) {
