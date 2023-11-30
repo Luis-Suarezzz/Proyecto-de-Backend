@@ -1,14 +1,14 @@
 const express = require('express');
 const UsersController = require('../controllers/users.controller');
 const { createToken } = require('../middleware/jwt.js');
-// const { validateToken, checkRole } = require('../middleware/validateToken.js');
+const { validateToken, checkRole } = require('../middleware/validateToken.js');
 
 const router = express.Router();
 
 router.get(
     '/:id',
-    // validateToken,
-    // checkRole('super-admin'),
+    validateToken,
+    checkRole(['admin','user']),
     async function (req, res) {
     UsersController.buscarId(req.params.id)
     .catch((err) => res.status(400).send({ err }))
@@ -37,7 +37,8 @@ router.post('/login', async function(req, res) {
         .catch((err) => res.status(400).send({ err }));
 });
 
-router.post('/register', async function(req, res) {
+router.post('/register',
+    async function(req, res) {
     await UsersController.register(req.body)
         .then((user) => {
             res.json({ user: {
@@ -48,11 +49,5 @@ router.post('/register', async function(req, res) {
         })
         .catch((err) => res.status(400).send({ err }));
 });
-
-router.get('/loguot', function(req, res) {
-    res.cookie('token', '', {
-        expires: new Date(0),
-    });
-})
 
 module.exports = router;

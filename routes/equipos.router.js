@@ -1,6 +1,8 @@
 const EquiposController = require('../controllers/equipos.controller');
 const express = require('express');
 
+const { validateToken, checkRole } = require('../middleware/validateToken.js');
+
 const router = express.Router();
 
 
@@ -35,7 +37,10 @@ router.get('/inscripcion/:idCategoria', async function(req, res, next) {
         .then((equipos) => res.send(equipos));
 });
 
-router.post('/', async function(req, res, next) {
+router.post('/',
+    validateToken,
+    checkRole(['admin', 'user']),
+    async function(req, res, next) {
     if (req.body.equipo) {
         await EquiposController.insertar(req.body.equipo)
             .catch((err) => res.status(400).send({ err }))
@@ -45,7 +50,10 @@ router.post('/', async function(req, res, next) {
     }
 });
 
-router.post('/inscribir', async function(req, res, next) {
+router.post('/inscribir',
+    validateToken,
+    checkRole(['admin', 'user']),
+    async function(req, res, next) {
     const { idEquipo, idCategoria } = req.body;
     if (idEquipo && idCategoria) {
 
@@ -57,7 +65,10 @@ router.post('/inscribir', async function(req, res, next) {
     }
 });
 
-router.put('/:id', async function(req, res, next) {
+router.put('/:id',
+    validateToken,
+    checkRole(['admin', 'user']),
+    async function(req, res, next) {
     if (req.body.equipo && req.params.id) {
         await EquiposController.editar(req.params.id, req.body.equipo)
             .catch((err) => res.status(400).send({ err }))
@@ -67,13 +78,19 @@ router.put('/:id', async function(req, res, next) {
     }
 });
 
-router.delete('/:id', async function(req, res, next) {
+router.delete('/:id',
+    validateToken,
+    checkRole(['admin', 'user']),
+    async function(req, res, next) {
     await EquiposController.eliminar(req.params.id)
         .catch((err) => res.status(400).send({ err }))
         .then((equipos) => res.send(equipos));
 });
 
-router.delete('/:idEquipo/:idCategoria', async function(req, res, next) {
+router.delete('/:idEquipo/:idCategoria',
+    validateToken,
+    checkRole(['admin', 'user']),
+    async function(req, res, next) {
     const { idEquipo, idCategoria } = req.params;
 
     await EquiposController.eliminarInscripcion(idEquipo, idCategoria)

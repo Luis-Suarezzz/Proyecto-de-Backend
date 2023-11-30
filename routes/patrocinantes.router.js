@@ -2,7 +2,7 @@ const PatrocinantesController = require('../controllers/patrocinantes.controller
 const express = require('express');
 
 const router = express.Router();
-
+const { validateToken, checkRole } = require('../middleware/validateToken.js');
 
 router.get('/view', function(req, res, next) {
     PatrocinantesController.mostrar()
@@ -30,7 +30,10 @@ router.get('/equiposPatrocinados/:idPatrocinante', async function(req, res, next
     }
 });
 
-router.post('/', async function(req, res, next) {
+router.post('/',
+    validateToken,
+    checkRole(['admin']),
+    async function(req, res, next) {
     if (req.body.patrocinante) {
         await PatrocinantesController.insertar(req.body.patrocinante)
             .catch((err) => res.status(400).send({ err }))
@@ -40,7 +43,10 @@ router.post('/', async function(req, res, next) {
     }
 });
 
-router.post('/patrocinar', async function(req, res, next) {
+router.post('/patrocinar',
+    validateToken,
+    checkRole(['admin']),
+    async function(req, res, next) {
     const { idPatrocinante, idEquipo } = req.body;
     if (idPatrocinante && idEquipo) {
 

@@ -185,6 +185,8 @@ CREATE TABLE `users` (
   `role` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO `users` (`id`, `nombre`, `email`, 'password', `role`) VALUES
+  (1, 'Mateo', 'mateo@gmail.com', '$2a$10$eyA7Uigrry3W7p6y4mQFL.NkGAWeo5.EpqZnma7hUnI0pC9EHV8fS', 'admin');
 --
 -- Índices para tablas volcadas
 --

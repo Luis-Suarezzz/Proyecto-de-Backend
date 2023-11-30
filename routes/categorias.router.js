@@ -1,10 +1,11 @@
 const CategoriasController = require('../controllers/categorias.controller');
 const express = require('express');
+const { validateToken, checkRole } = require('../middleware/validateToken.js');
 
 const router = express.Router();
 
 
-router.get('/', async function(req, res, next) {
+router.get('/',async function(req, res, next) {
     await CategoriasController.mostrar()
         .catch((err) => res.status(400).send({ err }))
         .then((categorias) => res.send(categorias));
@@ -16,7 +17,10 @@ router.get('/:idCategoria', async function(req, res, next) {
         .then((categoria) => res.send(categoria));
 });
 
-router.post('/', async function(req, res, next) {
+router.post('/',
+    validateToken,
+    checkRole(['admin']),
+    async function(req, res, next) {
     const { categoria, idModalidad } = req.body;
     if (categoria && idModalidad) {
 
@@ -29,7 +33,10 @@ router.post('/', async function(req, res, next) {
     }
 });
 
-router.put('/:id', async function(req, res, next) {
+router.put('/:id',
+    validateToken,
+    checkRole(['admin']),
+    async function(req, res, next) {
     if (req.body.categoria && req.body.modalidad) {
         const { categoria, modalidad } = req.body;
 
@@ -41,7 +48,10 @@ router.put('/:id', async function(req, res, next) {
     }
 });
 
-router.delete('/:id', async function(req, res, next) {
+router.delete('/:id',
+    validateToken,
+    checkRole(['admin']),
+    async function(req, res, next) {
     await CategoriasController.eliminar(req.params.id)
         .catch((err) => res.status(400).send({ err }))
         .then((categorias) => res.send(categorias));

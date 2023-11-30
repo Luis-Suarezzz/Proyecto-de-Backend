@@ -1,6 +1,5 @@
 const IntegrantesController = require('../controllers/integrantes.controller');
-// const authRequired = require('../middleware/validateToken.js');
-// const { createToken } = require('../middleware/validateToken.js');
+const { validateToken, checkRole } = require('../middleware/validateToken.js');
 
 const express = require('express');
 
@@ -22,7 +21,10 @@ router.get('/', async function(req, res, next) {
         .then((integrantes) => res.send(integrantes));
 });
 
-router.post('/', async function(req, res, next) {
+router.post('/',
+    validateToken,
+    checkRole(['admin', 'user']),
+    async function(req, res, next) {
     const { integrante, idEquipo } = req.body;
     if (integrante && idEquipo) {
 
@@ -34,7 +36,10 @@ router.post('/', async function(req, res, next) {
     }
 });
 
-router.put('/:idIntegrante', async function(req, res, next) {
+router.put('/:idIntegrante',
+    validateToken,
+    checkRole(['admin', 'user']),
+    async function(req, res, next) {
     if (req.body.integrante && req.body.equipo) {
         const { integrante, equipo } = req.body;
         
@@ -46,7 +51,10 @@ router.put('/:idIntegrante', async function(req, res, next) {
     }
 });
 
-router.delete('/:idIntegrante', async function(req, res, next) {
+router.delete('/:idIntegrante',
+    validateToken,
+    checkRole(['admin', 'user']),
+    async function(req, res, next) {
     await IntegrantesController.eliminar(req.params.idIntegrante)
         .catch((err) => res.status(400).send({ err }))
         .then((integrantes) => res.send(integrantes));
