@@ -1,5 +1,7 @@
-import jwt from "jsonwebtoken";
-import { TOKEN_SECRET } from "../config.js"
+const jwt = require("jsonwebtoken");
+require('dotenv').config();
+
+const TOKEN_SECRET = process.env.TOKEN_SECRET;
 
 export default function createAccesToken(payload) {
     return new Promise((resolve, reject) => {
