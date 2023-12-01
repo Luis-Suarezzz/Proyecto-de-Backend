@@ -38,7 +38,7 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id_cat`, `categoria_cat`, `id_mod_cat`) VALUES
-(8, 'o', 3);
+(8, 'Seguidor de línea', 3);
 
 -- --------------------------------------------------------
 
@@ -77,12 +77,12 @@ CREATE TABLE `equipos` (
 --
 
 INSERT INTO `equipos` (`id_equ`, `equipo_equ`) VALUES
-(2, 'da'),
-(6, 'dark'),
-(7, 'dark c'),
-(8, 'dark co'),
-(9, 'dark coq'),
-(1, 'nada');
+(2, 'Dark Horizon'),
+(6, 'Mancos Team'),
+(7, 'Robotitus'),
+(8, 'Cristal Lab'),
+(9, 'Under Lab'),
+(1, 'Another Team');
 
 -- --------------------------------------------------------
 
@@ -101,10 +101,10 @@ CREATE TABLE `integrantes` (
 --
 
 INSERT INTO `integrantes` (`id_int`, `integrante_int`, `id_equ_int`) VALUES
-(3, 'Pepo', 2),
-(6, 'Pe', 1),
-(8, 'Pep', 6),
-(10, 'Pepe', 6);
+(3, 'Miguel Hernandez', 2),
+(6, 'Pedro Sanchez', 1),
+(8, 'Javier Zambrano', 6),
+(10, 'Miguel Soto', 6);
 
 -- --------------------------------------------------------
 
@@ -122,9 +122,9 @@ CREATE TABLE `modalidades` (
 --
 
 INSERT INTO `modalidades` (`id_mod`, `modalidad_mod`) VALUES
-(3, 'nuev'),
-(4, 'nueva'),
-(5, 'Manquitos');
+(3, 'Vehiculos Autonomos'),
+(4, 'Pelea de robots'),
+(5, 'Soluciones Industriales');
 
 -- --------------------------------------------------------
 
@@ -142,9 +142,9 @@ CREATE TABLE `patrocinantes` (
 --
 
 INSERT INTO `patrocinantes` (`id_pat`, `patrocinante_pat`) VALUES
-(1, 'a'),
-(4, 'ab'),
-(5, 'abc');
+(1, 'KEL'),
+(4, 'InproAndes'),
+(5, 'AMII');
 
 -- --------------------------------------------------------
 
