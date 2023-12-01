@@ -5,6 +5,17 @@ const express = require('express');
 
 const router = express.Router();
 
+router.get('/view', async function(req, res, next) {
+
+    await IntegrantesController.mostrar()
+    .catch((err) => res.status(400).send({ err }))
+    .then((integrantes) => res.render('integrantes', {
+        title: 'Integrantes',
+        integrantes
+    }));
+
+});
+
 router.get('/:idIntegrante', async function(req, res, next) {
     if (req.params.idIntegrante) {
     await IntegrantesController.buscarIntegrantePorId(req.params.idIntegrante)

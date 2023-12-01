@@ -4,6 +4,18 @@ const { validateToken, checkRole } = require('../middleware/validateToken.js');
 
 const router = express.Router();
 
+router.get('/view', async function(req, res, next) {
+
+    await CategoriasController.mostrar()
+    .catch((err) => res.status(400).send({ err }))
+    .then((categorias) => res.render('categorias', {
+        title: 'Categorias',
+        categorias
+    }));
+
+});
+
+
 
 router.get('/',async function(req, res, next) {
     await CategoriasController.mostrar()
