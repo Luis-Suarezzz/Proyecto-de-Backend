@@ -16,8 +16,8 @@
     <div class="container">
         <div class="card white">
             <div class="card-content">
-                <span class="card-title">Modalidades</span>
-                <p>Modalidades del campeonato de robótica</p>
+                <span class="card-title">Categorías</span>
+                <p>Categorías del campeonato de robótica</p>
             </div>
         </div>
         
@@ -25,27 +25,13 @@
         
             <div class="card white">
                 <div class="card-content">
-                    
-                    <table class="striped">
-                        <thead>
-                        <tr>
-                            <th>Modalidad</th>
-                            <th>id</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <% modalidades.forEach(function(modalidad) { %>
-                            <tr>
-                            <td><%= modalidad.modalidad_mod %></td>
-                            <td><a href="/modalidades/view/<%= modalidad.id_mod %>"><%= modalidad.id_mod %></a></td>
-
-                            </tr>
-                        <% }); %>
-                        </tbody>
-                    </table>
-
+                    <span class="card-title">Detalles de la categoría</span>
+                    <p><b>Categoría:</b> <%= categoria.categoria_cat %></p>
+                    <p><b>id:</b> <%= categoria.id_cat %></p>
+                    <p><b>id (Modalidad):</b>  <a href="/modalidades/view/<%= categoria.id_mod_cat %>"><%= categoria.id_mod_cat %></a></p>
                 </div>
             </div>
+                    
         </div>
     </div>
 </div>

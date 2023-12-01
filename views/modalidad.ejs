@@ -25,27 +25,12 @@
         
             <div class="card white">
                 <div class="card-content">
-                    
-                    <table class="striped">
-                        <thead>
-                        <tr>
-                            <th>Modalidad</th>
-                            <th>id</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <% modalidades.forEach(function(modalidad) { %>
-                            <tr>
-                            <td><%= modalidad.modalidad_mod %></td>
-                            <td><a href="/modalidades/view/<%= modalidad.id_mod %>"><%= modalidad.id_mod %></a></td>
-
-                            </tr>
-                        <% }); %>
-                        </tbody>
-                    </table>
-
+                    <span class="card-title">Detalles de la modalidad</span>
+                    <p><b>Modalidad:</b> <%= modalidad.modalidad_mod %></p>
+                    <p><b>id:</b> <%= modalidad.id_mod %></p>
                 </div>
             </div>
+                    
         </div>
     </div>
 </div>

@@ -38,8 +38,8 @@
                         <% categorias.forEach(function(cat) { %>
                             <tr>
                             <td><%= cat.categoria_cat %></td>
-                            <td><%= cat.id_cat %></td>
-                            <td><%= cat.id_mod_cat %></td>
+                            <td><a href="/categorias/view/<%= cat.id_cat %>"><%= cat.id_cat %></a></td>
+                            <td><a href="/modalidades/view/<%= cat.id_mod_cat %>"><%= cat.id_mod_cat %></a></td>
                             </tr>
                         <% }); %>
                         </tbody>

@@ -28,6 +28,15 @@ router.get('/:idModalidad', async function(req, res, next) {
     .catch((err) => res.status(400).send({ err }));
 });
 
+router.get('/view/:idModalidad', async function(req, res, next) {
+    await ModalidadesController.buscarModalidadPorId(req.params.idModalidad)
+    .catch((err) => res.status(400).send({ err }))
+    .then((modalidad) => res.render('modalidad', {
+        title: 'Modalidad',
+        modalidad
+    }));
+});
+
 router.post('/',
     validateToken,
     checkRole(['admin']),

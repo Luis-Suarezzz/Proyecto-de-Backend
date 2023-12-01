@@ -15,8 +15,6 @@ router.get('/view', async function(req, res, next) {
 
 });
 
-
-
 router.get('/',async function(req, res, next) {
     await CategoriasController.mostrar()
         .catch((err) => res.status(400).send({ err }))
@@ -27,6 +25,15 @@ router.get('/:idCategoria', async function(req, res, next) {
     await CategoriasController.buscarCategoriaPorId(req.params.idCategoria)
         .catch((err) => res.status(400).send({ err }))
         .then((categoria) => res.send(categoria));
+});
+
+router.get('/view/:idCategoria', async function(req, res, next) {
+    await CategoriasController.buscarCategoriaPorId(req.params.idCategoria)
+        .catch((err) => res.status(400).send({ err }))
+        .then((categoria) => res.render('categoria', {
+            title: 'Categoría',
+            categoria
+        }));
 });
 
 router.post('/',
